@@ -3,25 +3,23 @@ import scrapy
 from vocabularies.items import VocabulariesItem
 from scrapy.loader import ItemLoader
 from scrapy.loader.processors import MapCompose
-from scrapy.spiders import CrawlSpider,Rule
+from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 import datetime
 import socket
 
+
 class PowerSpider(CrawlSpider):
-    name = "scrapeall"
+    name = "powerspider"
     allowed_domains = ["www.vocabulary.com"]
-    start_urls = ['http://www.vocabulary.com/dictionary/wistful']
+    start_urls = ['https://www.vocabulary.com/dictionary/wistful']
 
-    def parse(self, response):
+    rules = (
+        Rule(LinkExtractor(allow=('dictionary/')),
+             callback='parse_item', follow=True),
+    )
 
-        '''This function parses a property page.
-		@url http://www.vocabulary.com/dictionary/felony
-		@returns items 1
-		@scrapes word short_exp long_exp
-		@scrapes url project spider server date
-        '''
-
+    def parse_item(self, response):
         '''
         self.log("THE WORD: %s" % response.xpath(
             '//*[@class="dynamictext"]/text()').extract()[0])
@@ -44,9 +42,12 @@ class PowerSpider(CrawlSpider):
         l = ItemLoader(item=VocabulariesItem(), response=response)
         # Load fields using Xpath expressions
         l.add_xpath('word', '//*[@class="dynamictext"]/text()')
-        l.nested_xpath(
-            '//*[@class="short"]').add_xpath('short_exp', 'string(.)')
-        l.nested_xpath('//*[@class="long"]').add_xpath('long_exp', 'string(.)')
+        if response.xpath('//*[@class="short"]'):
+            l.nested_xpath(
+                '//*[@class="short"]').add_xpath('short_exp', 'string(.)')
+        if response.xpath('//*[@class="long"]'):
+            l.nested_xpath(
+                '//*[@class="long"]').add_xpath('long_exp', 'string(.)')
         l.add_value('url', response.url)
         l.add_value('project', self.settings.get('BOT_NAME'))
         l.add_value('spider', self.name)

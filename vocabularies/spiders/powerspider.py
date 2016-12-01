@@ -12,10 +12,10 @@ import socket
 class PowerSpider(CrawlSpider):
     name = "powerspider"
     allowed_domains = ["www.vocabulary.com"]
-    start_urls = ['https://www.vocabulary.com/dictionary/wistful']
+    start_urls = ['https://www.vocabulary.com/dictionary/subpoena']
 
     rules = (
-        Rule(LinkExtractor(allow=('dictionary/')),
+        Rule(LinkExtractor(allow=('dictionary/.')),
              callback='parse_item', follow=True),
     )
 

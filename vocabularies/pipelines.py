@@ -4,9 +4,10 @@ import pymysql
 '''
 This pipeline aims to:
 	1st.drop items whose short_exp and long_exp fields are null
-	2nd.drop duplicate items 
+	2nd.drop duplicate items
 	3rd.save reliable word items to mySQL database
 '''
+
 class VocabulariesPipeline(object):
 
 	def __init__():
@@ -14,11 +15,14 @@ class VocabulariesPipeline(object):
 		conn = pymysql.connect(host='127.0.0.1', unix_socket='/tmp/mysql.sock',
                        user='root', passwd='root', db='mysql', charset='utf8')
 		cur = conn.cursor()
+		cur.execute("USE vocabulary")
 		# prepare work 2: declare a new empty set to verify duplicate word items.
 		self.word_exist = set()
 
-	def save_to_mysql(self,item):
-			pass
+	def save_to_mysql(self, item):
+		cur.execute(
+		    "INSERT INTO pages (word, short_exp, long_exp) VALUES (\"%s\",\"%s\",\"%s\")", (item['word'], item['short_exp'], item['long_exp']))
+    	cur.connection.commit()
 
     def process_item(self, item, spider):
     	# 1st Step: drop items whose short_exp and long_exp fields are null

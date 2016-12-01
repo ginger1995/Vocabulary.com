@@ -48,9 +48,9 @@ class PowerSpider(CrawlSpider):
         if response.xpath('//*[@class="long"]'):
             l.nested_xpath(
                 '//*[@class="long"]').add_xpath('long_exp', 'string(.)')
-        l.add_value('url', response.url)
-        l.add_value('project', self.settings.get('BOT_NAME'))
-        l.add_value('spider', self.name)
-        l.add_value('server', socket.gethostname())
-        l.add_value('date', datetime.datetime.now())
+        #l.add_value('url', response.url)
+        #l.add_value('project', self.settings.get('BOT_NAME'))
+        #l.add_value('spider', self.name)
+        #l.add_value('server', socket.gethostname())
+        #l.add_value('date', datetime.datetime.now())
         return l.load_item()

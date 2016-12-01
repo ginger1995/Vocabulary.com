@@ -8,15 +8,16 @@
 import scrapy
 from scrapy.item import Item, Field
 
+
 class VocabulariesItem(scrapy.Item):
     # primary fields
     word = Field()
     short_exp = Field()
     long_exp = Field()
-    
+
     # Housekeeping fields
-    url = Field()
-    project = Field()
-    spider = Field()
-    server = Field()
-    date = Field()
+    #url = Field()
+    #project = Field()
+    #spider = Field()
+    #server = Field()
+    #date = Field()

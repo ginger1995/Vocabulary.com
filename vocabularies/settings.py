@@ -64,15 +64,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
+
 ITEM_PIPELINES = {
     'vocabularies.pipelines.VocabulariesPipeline': 300,
 }
-# start MySQL database configure setting
-#MYSQL_HOST = 'localhost'
-#MYSQL_DBNAME = 'vocabulary'
-#MYSQL_USER = 'root'
-#MYSQL_PASSWD = 'root'
-# end of MySQL database configure setting
 
 
 # Enable and configure the AutoThrottle extension (disabled by default)

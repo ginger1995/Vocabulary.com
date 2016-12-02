@@ -27,7 +27,8 @@ class VocabulariesPipeline(object):
 
     def process_item(self, item, spider):
         # 1st Step: drop items whose short_exp and long_exp fields are null
-        if (item['short_exp'] and item['long_exp']) == False:
+        if ((item['short_exp'] == "") and (item['long_exp'] == "")):
+            #print "~~~~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!!~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!~~~~~~~~~~~~~~~!!!!!!!!!!!!!!"
             raise DropItem("no-explanation word found: %s" % item)
         # 2nd Step: drop duplicate items
         elif (item['word'] in self.word_exist):

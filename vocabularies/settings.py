@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'vocabularies.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'vocabularies (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -64,16 +64,16 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'vocabularies.pipelines.SomePipeline': 300,
-#}
-'''
-ITEM_PIPELINES = {'scrapyapperyio.ApperyIoPipeline': 300}
-APPERYIO_DB_ID = '583bde13e4b0883e3c242b5b'
-APPERYIO_USERNAME = 'root'
-APPERYIO_PASSWORD = 'root'
-APPERYIO_COLLECTION_NAME = 'Words'
-'''
+ITEM_PIPELINES = {
+    'vocabularies.pipelines.VocabulariesPipeline': 300,
+}
+# start MySQL database configure setting
+#MYSQL_HOST = 'localhost'
+#MYSQL_DBNAME = 'vocabulary'
+#MYSQL_USER = 'root'
+#MYSQL_PASSWD = 'root'
+# end of MySQL database configure setting
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

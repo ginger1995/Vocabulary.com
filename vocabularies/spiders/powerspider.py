@@ -12,11 +12,11 @@ import socket
 class PowerSpider(CrawlSpider):
     name = "powerspider"
     allowed_domains = ["www.vocabulary.com"]
-    start_urls = ['https://www.vocabulary.com/dictionary/subpoena']
+    start_urls = ['https://www.vocabulary.com/dictionary/wistful']
 
     rules = (
         Rule(LinkExtractor(allow=('dictionary/.')),
-             callback='parse_item', follow=True),
+             callback='parse_item', follow=False),
     )
 
     def parse_item(self, response):
@@ -28,7 +28,7 @@ class PowerSpider(CrawlSpider):
         self.log("THE EXPLICT EXPLAINING: %s" % response.xpath(
             '//*[@class="long"]')[0].xpath('string(.)').extract()[0])
         '''
-        '''
+        
         item = VocabulariesItem()
         item['word'] = response.xpath(
             '//*[@class="dynamictext"]/text()').extract()[0]
@@ -36,8 +36,9 @@ class PowerSpider(CrawlSpider):
             '//*[@class="short"]')[0].xpath('string(.)').extract()[0]
         item['long_exp'] = response.xpath(
             '//*[@class="long"]')[0].xpath('string(.)').extract()[0]
+        return item
+        
         '''
-
         # Create the loader using the response
         l = ItemLoader(item=VocabulariesItem(), response=response)
         # Load fields using Xpath expressions
@@ -54,3 +55,4 @@ class PowerSpider(CrawlSpider):
         #l.add_value('server', socket.gethostname())
         #l.add_value('date', datetime.datetime.now())
         return l.load_item()
+        '''

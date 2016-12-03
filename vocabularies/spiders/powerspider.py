@@ -35,13 +35,13 @@ class PowerSpider(CrawlSpider):
 
         if response.xpath('//*[@class="short"]'):
             item['short_exp'] = response.xpath(
-                '//*[@class="short"]')[0].xpath('string(.)').extract()[0]
+                '//*[@class="short"]')[0].xpath('string(.)').extract()[0].encode('ascii', 'ignore').decode('ascii')
         else:
             item['short_exp'] = ""
 
         if response.xpath('//*[@class="long"]'):
             item['long_exp'] = response.xpath(
-                '//*[@class="long"]')[0].xpath('string(.)').extract()[0]
+                '//*[@class="long"]')[0].xpath('string(.)').extract()[0].encode('ascii', 'ignore').decode('ascii')
         else:
             item['long_exp'] = ""
         return item

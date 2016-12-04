@@ -12,7 +12,7 @@ import socket
 class PowerSpider(CrawlSpider):
     name = "powerspider"
     allowed_domains = ["www.vocabulary.com"]
-    start_urls = ['https://www.vocabulary.com/dictionary/happy']
+    start_urls = ['https://www.vocabulary.com/dictionary/important']
 
     rules = (
         Rule(LinkExtractor(allow=('dictionary/.')),
@@ -35,13 +35,13 @@ class PowerSpider(CrawlSpider):
 
         if response.xpath('//*[@class="short"]'):
             item['short_exp'] = response.xpath(
-                '//*[@class="short"]')[0].xpath('string(.)').extract()[0].encode('ascii', 'ignore').decode('ascii')
+                '//*[@class="short"]')[0].xpath('string(.)').extract()[0]
         else:
             item['short_exp'] = ""
 
         if response.xpath('//*[@class="long"]'):
             item['long_exp'] = response.xpath(
-                '//*[@class="long"]')[0].xpath('string(.)').extract()[0].encode('ascii', 'ignore').decode('ascii')
+                '//*[@class="long"]')[0].xpath('string(.)').extract()[0]
         else:
             item['long_exp'] = ""
         return item

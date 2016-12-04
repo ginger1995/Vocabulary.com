@@ -16,7 +16,7 @@ class VocabulariesPipeline(object):
         self.conn = pymysql.connect(host='127.0.0.1', unix_socket='/tmp/mysql.sock',
                                     user='root', passwd='root', db='mysql', charset='utf8')
         self.cur = self.conn.cursor()
-        self.cur.execute("USE vocabulary")
+        self.cur.execute("USE lexicon")
         # prepare work 2: declare a new empty set to verify duplicate.
         self.word_exist = set()
 
@@ -28,7 +28,6 @@ class VocabulariesPipeline(object):
     def process_item(self, item, spider):
         # 1st Step: drop items whose short_exp and long_exp fields are null
         if ((item['short_exp'] == "") and (item['long_exp'] == "")):
-            #print "~~~~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!!~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!~~~~~~~~~~~~~~~!!!!!!!!!!!!!!"
             raise DropItem("no-explanation word found: %s" % item)
         # 2nd Step: drop duplicate items
         elif (item['word'] in self.word_exist):
